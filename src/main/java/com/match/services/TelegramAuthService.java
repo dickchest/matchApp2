@@ -1,6 +1,7 @@
 package com.match.services;
 
 import com.match.domain.TelegramAuthData;
+import com.match.validation.TelegramHashValidation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,6 @@ public class TelegramAuthService {
 
     public boolean validateHash(TelegramAuthData telegramAuthData) {
         // Вызов метода checkAuth для проверки хеша
-        return telegramAuthData.checkAuth(botToken);
+        return TelegramHashValidation.checkAuth(botToken, telegramAuthData);
     }
 }
