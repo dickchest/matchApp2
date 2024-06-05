@@ -10,8 +10,11 @@ import java.util.Map;
 @Getter
 @Setter
 public class UserProfile {
+    private String userProfileId;
     private String userId;
-    private String name;
+    private String firstName;
+    private String secondName;
+    private String userName;
     private Timestamp dateOfBirth;
     private Integer gender;
     private String city;
@@ -25,4 +28,5 @@ public class UserProfile {
     private Map<String, Integer> toddlers;
     private List<String> interests;
     private List<String> photos;
+    private String about;
 }
