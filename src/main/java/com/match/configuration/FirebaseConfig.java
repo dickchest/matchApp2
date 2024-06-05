@@ -6,10 +6,13 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 
+@Configuration
 public class FirebaseConfig {
     @Value("classpath:serviceAccountKey.json")
     Resource resourceFile;
@@ -19,6 +22,7 @@ public class FirebaseConfig {
         return FirebaseAuth.getInstance();
     }
 
+    @PostConstruct
     public void initializeFirebaseApp() throws IOException {
 
         FirebaseOptions options = FirebaseOptions.builder()
@@ -26,9 +30,8 @@ public class FirebaseConfig {
                 .setServiceAccountId("firebase-adminsdk-9r217@match-app-2.iam.gserviceaccount.com")
                 .build();
 
-        FirebaseApp.initializeApp(options);
+        if (FirebaseApp.getApps().isEmpty()) { // Проверяем, не инициализировано ли уже приложение
+            FirebaseApp.initializeApp(options);
+        }
     }
-
-
-
 }

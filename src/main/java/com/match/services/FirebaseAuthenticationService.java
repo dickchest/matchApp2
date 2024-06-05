@@ -16,7 +16,7 @@ public class FirebaseAuthenticationService {
         this.telegramAuthService = telegramAuthService;
     }
 
-    public String authenticateWithTelegramData(TelegramAuthData telegramAuthData) throws FirebaseAuthException {
+    public String authenticateWithTelegramData(TelegramAuthData telegramAuthData) {
         // проверка хеша
         if (!telegramAuthService.validateHash(telegramAuthData)) {
             throw new InvalidTelegramHashException("Invalid hash");
@@ -24,22 +24,37 @@ public class FirebaseAuthenticationService {
 
         // проверка пользователя в фаербейз и создание/обновление записи
         String uid = telegramAuthData.getUser().getId().toString();
-        UserRecord userRecord = FirebaseAuth.getInstance().getUser(uid);
-        if (userRecord == null) {
+        UserRecord userRecord = null;
+        try {
+            userRecord = FirebaseAuth.getInstance().getUser(uid);
+            // если нет такого юзера, перебросит в блок обработки исключения
+
+            // обновление существующего пользователя
+            // ..
+        } catch (FirebaseAuthException e) {
+            // Если юзера с таким айди нет,
             // создание нового пользователя
             UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                     .setUid(uid)
                     .setEmail(telegramAuthData.getUser().getUsername() + "@telegram.com")
+                    .setDisplayName(telegramAuthData.getUser().getUsername());
             // другие поля пользователя...
-            ;
-            userRecord = FirebaseAuth.getInstance().createUser(request);
-        } else {
-            // обновление существующего пользователя
-            // ..
+            // todo нужно продумать переход на базу данных с полными данными пользователя
+
+            try {
+                userRecord = FirebaseAuth.getInstance().createUser(request);
+            } catch (FirebaseAuthException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
         // Генерация Firebase Token
-        String customToken = FirebaseAuth.getInstance().createCustomToken(uid);
+        String customToken = null;
+        try {
+            customToken = FirebaseAuth.getInstance().createCustomToken(userRecord.getUid());
+        } catch (FirebaseAuthException e) {
+            throw new RuntimeException(e);
+        }
         return customToken;
     }
 }

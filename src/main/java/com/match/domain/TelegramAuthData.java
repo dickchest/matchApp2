@@ -67,6 +67,9 @@ public class TelegramAuthData {
             messageDigest.update((botToken + dataCheckString).getBytes(StandardCharsets.UTF_8));
             String computedHash = bytesToHex(messageDigest.digest());
 
+            System.out.println("computedHash: " + computedHash);
+            System.out.println("hash: "  + hash);
+
             // Сравнение вычисленного хэша с предоставленным хэшем
             return computedHash.equals(hash);
         } catch (NoSuchAlgorithmException e) {
