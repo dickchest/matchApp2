@@ -10,7 +10,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class UserProfile {
-    private String userProfileId;
+    private String id;
     private String userId;
     private String firstName;
     private String secondName;
