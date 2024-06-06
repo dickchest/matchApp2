@@ -1,20 +1,17 @@
-package com.match.domain;
+package com.match.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+// Класс для представления регистрационных данных
 @Getter
 @Setter
-public class User {
-    private Integer id;
-    @JsonProperty("is_bot")
-    private Boolean isBot;
+public class RegistrationDataDto {
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
     private String lastName;
-    private String username;
-    @JsonProperty("language_code")
-    private String languageCode;
+    @JsonProperty("birth_date")
+    private String birthDate;
 }
