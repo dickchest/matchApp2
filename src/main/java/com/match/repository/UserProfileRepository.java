@@ -7,7 +7,6 @@ import com.match.domain.UserProfile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @Repository
@@ -23,9 +22,18 @@ public class UserProfileRepository {
                 .map(x -> x.toObject(UserProfile.class)).toList();
     }
 
-    public String create(UserProfile entity) {
-        DocumentReference addedDocRef = collection.document();
-        entity.setId(addedDocRef.getId());
+    public String save(UserProfile entity) {
+        DocumentReference addedDocRef = null;
+        // проверка, есть ли документ
+        if (get(entity.getId()) == null) {
+            // тогда создаем новую запись в бд
+            addedDocRef = collection.document();
+            entity.setId(addedDocRef.getId());
+        } else {
+            // иначе достаем имеююся запись
+            addedDocRef = collection.document(entity.getId());
+        }
+
         ApiFuture<WriteResult> writeResult = addedDocRef.set(entity);
         return addedDocRef.getId();
     }
@@ -35,17 +43,6 @@ public class UserProfileRepository {
         return document.toObject(UserProfile.class);
     }
 
-    public String update(UserProfile entity) throws ExecutionException, InterruptedException {
-        // проверка, есть ли документ
-        UserProfile request = get(entity.getId());
-
-        // проверяем каждое поле
-        Optional.ofNullable(entity.getUserName()).ifPresent(request::setUserName);
-        // todo дописать все поля
-
-        ApiFuture<WriteResult> collectionsApiFuture = collection.document(entity.getId()).set(request);
-        return collectionsApiFuture.get().getUpdateTime().toString();
-    }
 
     public String delete(String documentId) {
         // нужно проверить, есть ли документ
