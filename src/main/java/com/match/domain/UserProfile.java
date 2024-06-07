@@ -14,7 +14,7 @@ public class UserProfile {
     private String userId;
     private String firstName;
     private String secondName;
-    private String userName;
+    private String name;
     private LocalDate dateOfBirth;
     private Integer gender;
     private String city;

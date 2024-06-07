@@ -38,8 +38,6 @@ public class FirebaseAuthenticationService {
                     .setUid(uid)
                     .setEmail(telegramAuthDataDto.getUser().getUsername() + "@telegram.com")
                     .setDisplayName(telegramAuthDataDto.getUser().getUsername());
-            // другие поля пользователя...
-            // todo нужно продумать переход на базу данных с полными данными пользователя
 
             try {
                 userRecord = FirebaseAuth.getInstance().createUser(request);

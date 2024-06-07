@@ -9,16 +9,13 @@ import java.util.Map;
 @Getter
 @Setter
 public class UserProfileDto {
-    private String id;
-    private String userId;
-    private String firstName;
-    private String secondName;
-    private String userName;
+
+    private String name;
     private String dateOfBirth; // Для DTO используем строковое представление даты
     private Integer gender;
     private String city;
-    private LanguagesDto languages; // Отдельный DTO для languages, если это не Enum
-    private Map<Integer, Integer> goals;
+    private List<String> languages;
+    private List<Integer> goals;
     private Boolean goalsShow;
     private List<Integer> genderLook;
     private Boolean genderLookShow;
@@ -26,6 +23,4 @@ public class UserProfileDto {
     private UserProfileQuestionsDto questions; // Отдельный DTO для questions
     private Map<String, Integer> toddlers;
     private List<String> interests;
-    private List<String> photos;
-    private String about;
 }
