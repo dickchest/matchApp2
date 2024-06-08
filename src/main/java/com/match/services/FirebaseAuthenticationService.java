@@ -3,20 +3,25 @@ package com.match.services;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
-import com.match.dto.TelegramAuthDataDto;
+import com.match.dto.authDtos.FirebaseTokenAndStatusDto;
+import com.match.dto.authDtos.TelegramAuthDataDto;
 import com.match.validation.InvalidTelegramHashException;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class FirebaseAuthenticationService {
 
     private final TelegramAuthService telegramAuthService;
+    private final TokenGeneration tokenGeneration;
 
-    public FirebaseAuthenticationService(TelegramAuthService telegramAuthService) {
+    public FirebaseAuthenticationService(TelegramAuthService telegramAuthService, TokenGeneration tokenGeneration) {
         this.telegramAuthService = telegramAuthService;
+        this.tokenGeneration = tokenGeneration;
     }
 
-    public String authenticateWithTelegramData(TelegramAuthDataDto telegramAuthDataDto) {
+    public FirebaseTokenAndStatusDto authenticateWithTelegramData(TelegramAuthDataDto telegramAuthDataDto) {
         // проверка хеша
         if (!telegramAuthService.validateHash(telegramAuthDataDto)) {
             throw new InvalidTelegramHashException("Invalid hash");
@@ -34,10 +39,8 @@ public class FirebaseAuthenticationService {
         } catch (FirebaseAuthException e) {
             // Если юзера с таким айди нет,
             // создание нового пользователя
-            UserRecord.CreateRequest request = new UserRecord.CreateRequest()
-                    .setUid(uid)
-                    .setEmail(telegramAuthDataDto.getUser().getUsername() + "@telegram.com")
-                    .setDisplayName(telegramAuthDataDto.getUser().getUsername());
+            UserRecord.CreateRequest request = new UserRecord.CreateRequest().setUid(uid).setEmail(telegramAuthDataDto.getUser().getUsername() + "@telegram.com").setDisplayName(telegramAuthDataDto.getUser().getUsername());
+            // todo добавить установку статуса
 
             try {
                 userRecord = FirebaseAuth.getInstance().createUser(request);
@@ -47,12 +50,10 @@ public class FirebaseAuthenticationService {
         }
 
         // Генерация Firebase Token
-        String customToken = null;
-        try {
-            customToken = FirebaseAuth.getInstance().createCustomToken(userRecord.getUid());
-        } catch (FirebaseAuthException e) {
-            throw new RuntimeException(e);
-        }
-        return customToken;
+        Map<String, String> tokens = tokenGeneration.generate(userRecord);
+
+        return new FirebaseTokenAndStatusDto(
+                tokens.get("access"), tokens.get("refresh"), "USER_STATUS");
+
     }
 }

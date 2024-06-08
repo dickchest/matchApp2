@@ -1,7 +1,7 @@
 package com.match.controllers;
 
-import com.match.dto.TelegramAuthDataDto;
-import com.match.dto.FirebaseTokenAndStatusDto;
+import com.match.dto.authDtos.TelegramAuthDataDto;
+import com.match.dto.authDtos.FirebaseTokenAndStatusDto;
 import com.match.services.FirebaseAuthenticationService;
 import com.match.validation.InvalidTelegramHashException;
 import org.springframework.http.HttpStatus;
@@ -26,10 +26,9 @@ public class AppController {
     @PostMapping("/enter")
     public ResponseEntity<?> enter(@RequestBody TelegramAuthDataDto telegramAuthDataDto) {
         try {
-            System.out.println(telegramAuthDataDto.toString());
             // Аутентификация пользователя и получение Firebase Token
-            String firebaseToken = firebaseAuthenticationService.authenticateWithTelegramData(telegramAuthDataDto);
-            return ResponseEntity.ok(new FirebaseTokenAndStatusDto(firebaseToken, "USER_STATUS"));
+            FirebaseTokenAndStatusDto response = firebaseAuthenticationService.authenticateWithTelegramData(telegramAuthDataDto);
+            return ResponseEntity.ok(response);
         } catch (InvalidTelegramHashException e) {
             // Если хеш не совпадает, возвращаем ошибку 511
             return ResponseEntity.status(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED).body("Invalid hash");

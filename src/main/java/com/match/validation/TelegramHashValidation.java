@@ -1,6 +1,6 @@
 package com.match.validation;
 
-import com.match.dto.TelegramAuthDataDto;
+import com.match.dto.authDtos.TelegramAuthDataDto;
 import com.match.dto.UserDto;
 
 import java.nio.charset.StandardCharsets;

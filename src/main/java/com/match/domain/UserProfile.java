@@ -19,7 +19,7 @@ public class UserProfile {
     private Integer gender;
     private String city;
     private Languages languages;
-    private Map<Integer, Integer> goals;
+    private List<Integer> goals;
     private Boolean goalsShow;
     private List<Integer> genderLook;
     private Boolean genderLookShow;

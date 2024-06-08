@@ -1,6 +1,6 @@
 package com.match.services;
 
-import com.match.dto.TelegramAuthDataDto;
+import com.match.dto.authDtos.TelegramAuthDataDto;
 import com.match.validation.TelegramHashValidation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

@@ -14,7 +14,7 @@ public class UserProfileDto {
     private String dateOfBirth; // Для DTO используем строковое представление даты
     private Integer gender;
     private String city;
-    private List<String> languages;
+//    private List<String> languages;
     private List<Integer> goals;
     private Boolean goalsShow;
     private List<Integer> genderLook;
