@@ -1,6 +1,6 @@
 package com.match.domain.enums;
 
-public enum userStatus {
+public enum UserStatus {
     REGISTER,
     ADDED,
     ANALYSED,

@@ -3,7 +3,7 @@ package com.match.services;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
-import com.match.domain.enums.userStatus;
+import com.match.domain.enums.UserStatus;
 import com.match.dto.authDtos.FirebaseTokenAndStatusDto;
 import com.match.dto.authDtos.TelegramAuthDataDto;
 import com.match.repository.UserStatusRepository;
@@ -11,6 +11,7 @@ import com.match.validation.InvalidTelegramHashException;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class FirebaseAuthenticationService {
@@ -25,7 +26,7 @@ public class FirebaseAuthenticationService {
         this.userStatusRepository = userStatusRepository;
     }
 
-    public FirebaseTokenAndStatusDto authenticateWithTelegramData(TelegramAuthDataDto telegramAuthDataDto) {
+    public FirebaseTokenAndStatusDto authenticateWithTelegramData(TelegramAuthDataDto telegramAuthDataDto) throws ExecutionException, InterruptedException {
         // проверка хеша
         if (!telegramAuthService.validateHash(telegramAuthDataDto)) {
             throw new InvalidTelegramHashException("Invalid hash");
@@ -51,7 +52,7 @@ public class FirebaseAuthenticationService {
             try {
                 userRecord = FirebaseAuth.getInstance().createUser(request);
                 // установка статуса в firestone
-                userStatusRepository.save(uid, userStatus.REGISTER);
+                userStatusRepository.save(uid, UserStatus.REGISTER);
             } catch (FirebaseAuthException ex) {
                 throw new RuntimeException(ex);
             }
@@ -59,9 +60,11 @@ public class FirebaseAuthenticationService {
 
         // Генерация Firebase Token
         Map<String, String> tokens = tokenGeneration.generate(userRecord);
+        // добыть статус у пользователя
+        UserStatus userStatus = userStatusRepository.getStatus(uid);
 
         return new FirebaseTokenAndStatusDto(
-                tokens.get("access"), tokens.get("refresh"), "USER_STATUS");
+                tokens.get("access"), tokens.get("refresh"), userStatus.toString());
 
     }
 

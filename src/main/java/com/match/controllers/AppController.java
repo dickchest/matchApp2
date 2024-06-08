@@ -8,19 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.ExecutionException;
+
 @RestController
-@RequestMapping("/myself")
+//@RequestMapping("/myself")
 public class AppController {
 
     private final FirebaseAuthenticationService firebaseAuthenticationService;
 
     public AppController(FirebaseAuthenticationService firebaseAuthenticationService) {
         this.firebaseAuthenticationService = firebaseAuthenticationService;
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<?> test() {
-        return new ResponseEntity<>("Hello World", HttpStatus.OK);
     }
 
     @PostMapping("/enter")
@@ -32,6 +29,8 @@ public class AppController {
         } catch (InvalidTelegramHashException e) {
             // Если хеш не совпадает, возвращаем ошибку 511
             return ResponseEntity.status(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED).body("Invalid hash");
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

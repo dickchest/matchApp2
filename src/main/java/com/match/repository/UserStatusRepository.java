@@ -1,22 +1,24 @@
 package com.match.repository;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import com.match.domain.enums.userStatus;
+import com.match.domain.UserProfile;
+import com.match.domain.Users;
+import com.match.domain.enums.UserStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 @Repository
 public class UserStatusRepository {
     Firestore dbFirestore = FirestoreClient.getFirestore();
     CollectionReference collection = dbFirestore.collection("users");
 
-    public void save(String uid, userStatus status) {
+    public void save(String uid, UserStatus status) {
         Map<String, String> userData = new HashMap<>();
         userData.put("status", status.toString());
 
@@ -26,5 +28,11 @@ public class UserStatusRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public UserStatus getStatus(String uid) throws ExecutionException, InterruptedException {
+        DocumentReference documentReference = collection.document(uid);
+        DocumentSnapshot document = documentReference.get().get();
+        return Objects.requireNonNull(document.toObject(Users.class)).getStatus();
     }
 }
