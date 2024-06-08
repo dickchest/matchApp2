@@ -1,4 +1,4 @@
-package com.match.dto;
+package com.match.dto.authDtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

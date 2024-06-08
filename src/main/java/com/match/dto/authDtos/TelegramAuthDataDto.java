@@ -1,6 +1,5 @@
 package com.match.dto.authDtos;
 
-import com.match.dto.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
