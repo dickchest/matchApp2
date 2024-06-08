@@ -1,12 +1,15 @@
 package com.match.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class UserProfileQuestions {
     private String preferToLive;
     private String idealVacation;

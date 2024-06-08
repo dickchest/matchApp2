@@ -1,7 +1,6 @@
 package com.match.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,8 +8,11 @@ import java.util.Map;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class UserProfile {
-    private String id;
     private String userId;
     private String firstName;
     private String secondName;
@@ -18,7 +20,7 @@ public class UserProfile {
     private LocalDate dateOfBirth;
     private Integer gender;
     private String city;
-    private Languages languages;
+    private List<Languages> languages;
     private List<Integer> goals;
     private Boolean goalsShow;
     private List<Integer> genderLook;

@@ -1,20 +1,18 @@
 package com.match.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
 
-@Getter
-@Setter
+@Data
 public class UserProfileDto {
 
     private String name;
     private String dateOfBirth; // Для DTO используем строковое представление даты
     private Integer gender;
     private String city;
-//    private List<String> languages;
+    private List<String> languages;
     private List<Integer> goals;
     private Boolean goalsShow;
     private List<Integer> genderLook;

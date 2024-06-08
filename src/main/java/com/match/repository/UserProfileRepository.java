@@ -23,18 +23,18 @@ public class UserProfileRepository {
     }
 
     public String save(UserProfile entity) {
+//        DocumentReference addedDocRef = null;
+//        // проверка, есть ли документ
+//        if (get(entity.getId()) == null) {
+//            // тогда создаем новую запись в бд
+//            addedDocRef = collection.document();
+//            entity.setId(addedDocRef.getId());
+//        } else {
+//            // иначе достаем имеююся запись
+//            addedDocRef = collection.document(entity.getId());
+//        }
         DocumentReference addedDocRef = null;
-        // проверка, есть ли документ
-        if (get(entity.getId()) == null) {
-            // тогда создаем новую запись в бд
-            addedDocRef = collection.document();
-            entity.setId(addedDocRef.getId());
-        } else {
-            // иначе достаем имеююся запись
-            addedDocRef = collection.document(entity.getId());
-        }
-
-        ApiFuture<WriteResult> writeResult = addedDocRef.set(entity);
+        ApiFuture<WriteResult> writeResult = collection.document(entity.getUserId()).set(entity);
         return addedDocRef.getId();
     }
 

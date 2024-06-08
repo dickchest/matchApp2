@@ -3,12 +3,11 @@ package com.match.services;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.http.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ public class TokenGeneration {
 
 //    private final RestTemplate restTemplate;
 
-//    @Value("${firebase.api-key}")
+    //    @Value("${firebase.api-key}")
     private final String firebaseApiKey;
 
     public TokenGeneration(@Value("${firebase.api-key}") String firebaseApiKey) {

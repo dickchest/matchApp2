@@ -1,12 +1,8 @@
 package com.match.services;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
-import com.google.firebase.cloud.FirestoreClient;
 import com.match.domain.enums.userStatus;
 import com.match.dto.authDtos.FirebaseTokenAndStatusDto;
 import com.match.dto.authDtos.TelegramAuthDataDto;
@@ -14,7 +10,6 @@ import com.match.repository.UserStatusRepository;
 import com.match.validation.InvalidTelegramHashException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
