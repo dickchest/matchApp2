@@ -34,6 +34,11 @@ public interface UserProfileMapper {
     @Mapping(target = "dateOfBirth", source = "dateOfBirth", qualifiedByName = "stringToTimestamp")
     UserProfile fromDto(UserProfileRequestDto userProfileRequestDto);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "languages", source = "languages", qualifiedByName = "namesToLanguages")
+    @Mapping(target = "dateOfBirth", source = "dateOfBirth", qualifiedByName = "stringToTimestamp")
+    void modifyModelFromDto(UserProfileRequestDto dto, @MappingTarget UserProfile userProfile);
+
     @Named("languagesToNames")
     default List<String> mapLanguagesToNames(List<Languages> languages) {
         if (languages == null) {

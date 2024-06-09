@@ -61,8 +61,11 @@ public class MyselfService {
         String userUid = authRepository.getUserUid(principal);
 
         // UserProfileEntity
-        UserProfile userProfile = mapper.fromDto(dto);
-        userProfile.setUserId(userUid);
+        UserProfile userProfile = repository.get(userUid);
+
+        // Обновление существующего userProfile данными из dto
+        // Важно: этот вызов теперь обновляет userProfile, а не создаёт новый объект
+        mapper.modifyModelFromDto(dto, userProfile);
 
         // сохраняем в репозитории
         repository.save(userProfile);
