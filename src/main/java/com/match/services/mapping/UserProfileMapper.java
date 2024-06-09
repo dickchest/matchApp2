@@ -3,9 +3,7 @@ package com.match.services.mapping;
 import com.match.domain.Languages;
 import com.match.domain.UserProfile;
 import com.match.dto.UserProfileDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -16,10 +14,12 @@ public interface UserProfileMapper {
 
     UserProfileMapper INSTANCE = Mappers.getMapper(UserProfileMapper.class);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "languages", source = "languages", qualifiedByName = "languagesToNames")
     @Mapping(target = "dateOfBirth", source = "dateOfBirth", dateFormat = "dd.MM.yyyy")
     UserProfileDto toDto(UserProfile userProfile);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "languages", source = "languages", qualifiedByName = "namesToLanguages")
     @Mapping(target = "dateOfBirth", source = "dateOfBirth", dateFormat = "dd.MM.yyyy")
     UserProfile fromDto(UserProfileDto userProfileDto);
