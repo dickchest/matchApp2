@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.checkerframework.checker.units.qual.N;
 
 @Getter
 @Setter
@@ -13,4 +12,6 @@ import org.checkerframework.checker.units.qual.N;
 @NoArgsConstructor
 public class Users {
     private UserStatus status;
+//    private String firstName;
+//    private String secondName;
 }

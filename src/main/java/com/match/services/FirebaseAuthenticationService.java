@@ -7,6 +7,8 @@ import com.match.domain.enums.UserStatus;
 import com.match.dto.authDtos.FirebaseTokenAndStatusDto;
 import com.match.dto.authDtos.TelegramAuthDataDto;
 import com.match.repository.UserStatusRepository;
+import com.match.services.utils.auth.TelegramAuthService;
+import com.match.services.utils.auth.TokenGeneration;
 import com.match.validation.InvalidTelegramHashException;
 import org.springframework.stereotype.Service;
 
@@ -65,19 +67,5 @@ public class FirebaseAuthenticationService {
 
         return new FirebaseTokenAndStatusDto(
                 tokens.get("access"), tokens.get("refresh"), userStatus.toString());
-
     }
-
-//    private void setCustomUserStatus(String uid, String status) {
-//        Firestore db = FirestoreClient.getFirestore();
-//        Map<String, String> userData = new HashMap<>();
-//        userData.put("status", status);
-//
-//        ApiFuture<WriteResult> future = db.collection("users").document(uid).set(userData);
-//        try{
-//            future.get();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }

@@ -3,7 +3,6 @@ package com.match.repository;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import com.match.domain.UserProfile;
 import com.match.domain.Users;
 import com.match.domain.enums.UserStatus;
 import org.springframework.stereotype.Repository;
@@ -30,9 +29,14 @@ public class UserStatusRepository {
         }
     }
 
-    public UserStatus getStatus(String uid) throws ExecutionException, InterruptedException {
+    public UserStatus getStatus(String uid) {
         DocumentReference documentReference = collection.document(uid);
-        DocumentSnapshot document = documentReference.get().get();
+        DocumentSnapshot document = null;
+        try {
+            document = documentReference.get().get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
         return Objects.requireNonNull(document.toObject(Users.class)).getStatus();
     }
 }

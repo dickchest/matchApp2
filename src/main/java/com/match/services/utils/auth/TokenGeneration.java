@@ -1,4 +1,4 @@
-package com.match.services;
+package com.match.services.utils.auth;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;

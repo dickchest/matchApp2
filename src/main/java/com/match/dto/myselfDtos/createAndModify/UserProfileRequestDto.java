@@ -1,12 +1,13 @@
-package com.match.dto;
+package com.match.dto.myselfDtos.createAndModify;
 
+import com.match.dto.myselfDtos.UserProfileQuestionsDto;
 import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
 
 @Data
-public class UserProfileDto {
+public class UserProfileRequestDto {
 
     private String name;
     private String dateOfBirth; // Для DTO используем строковое представление даты

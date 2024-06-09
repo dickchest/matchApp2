@@ -1,4 +1,4 @@
-package com.match.services;
+package com.match.services.utils.auth;
 
 import com.match.dto.authDtos.TelegramAuthDataDto;
 import com.match.validation.TelegramHashValidation;

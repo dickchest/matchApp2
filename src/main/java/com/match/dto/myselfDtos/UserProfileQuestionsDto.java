@@ -1,4 +1,4 @@
-package com.match.dto;
+package com.match.dto.myselfDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

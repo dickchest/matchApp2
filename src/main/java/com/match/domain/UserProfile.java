@@ -1,8 +1,8 @@
 package com.match.domain;
 
+import com.google.cloud.Timestamp;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -14,10 +14,8 @@ import java.util.Map;
 @ToString
 public class UserProfile {
     private String userId;
-    private String firstName;
-    private String secondName;
     private String name;
-    private LocalDate dateOfBirth;
+    private Timestamp dateOfBirth;
     private Integer gender;
     private String city;
     private List<Languages> languages;

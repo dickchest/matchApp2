@@ -23,36 +23,26 @@ public class UserProfileRepository {
     }
 
     public String save(UserProfile entity) {
-//        DocumentReference addedDocRef = null;
-//        // проверка, есть ли документ
-//        if (get(entity.getId()) == null) {
-//            // тогда создаем новую запись в бд
-//            addedDocRef = collection.document();
-//            entity.setId(addedDocRef.getId());
-//        } else {
-//            // иначе достаем имеююся запись
-//            addedDocRef = collection.document(entity.getId());
-//        }
         DocumentReference addedDocRef = null;
         ApiFuture<WriteResult> writeResult = collection.document(entity.getUserId()).set(entity);
-        return addedDocRef.getId();
+        return entity.getUserId();
     }
 
-    public UserProfile get(String documentId) {
-        DocumentSnapshot document = checkIfExistDocument(documentId);
+    public UserProfile get(String uid) {
+        DocumentSnapshot document = checkIfExistDocument(uid);
         return document.toObject(UserProfile.class);
     }
 
 
-    public String delete(String documentId) {
+    public String delete(String uid) {
         // нужно проверить, есть ли документ
-        DocumentSnapshot document = checkIfExistDocument(documentId);
-        ApiFuture<WriteResult> collectionsApiFuture = collection.document(documentId).delete();
-        return "Successfully deleted " + documentId;
+        DocumentSnapshot document = checkIfExistDocument(uid);
+        ApiFuture<WriteResult> collectionsApiFuture = collection.document(uid).delete();
+        return "Successfully deleted " + uid;
     }
 
-    private DocumentSnapshot checkIfExistDocument(String documentId) {
-        DocumentReference documentReference = collection.document(documentId);
+    private DocumentSnapshot checkIfExistDocument(String uid) {
+        DocumentReference documentReference = collection.document(uid);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
         try {
             DocumentSnapshot document = future.get();
