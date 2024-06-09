@@ -24,7 +24,12 @@ public class MyselfController {
 
     @PostMapping("/create")
     public ResponseEntity<UserStatusDto> create(@RequestBody UserProfileRequestDto dto, Principal principal) {
-        System.out.println("enter in create endpoint");
         return new ResponseEntity<>(service.create(dto, principal), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/modify")
+    public ResponseEntity<String> modify(@RequestBody UserProfileRequestDto dto, Principal principal) {
+        service.modify(dto, principal);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

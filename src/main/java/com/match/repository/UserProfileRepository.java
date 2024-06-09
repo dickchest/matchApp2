@@ -22,10 +22,9 @@ public class UserProfileRepository {
                 .map(x -> x.toObject(UserProfile.class)).toList();
     }
 
-    public String save(UserProfile entity) {
+    public void save(UserProfile entity) {
         DocumentReference addedDocRef = null;
         ApiFuture<WriteResult> writeResult = collection.document(entity.getUserId()).set(entity);
-        return entity.getUserId();
     }
 
     public UserProfile get(String uid) {

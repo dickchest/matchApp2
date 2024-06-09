@@ -69,6 +69,9 @@ public interface UserProfileMapper {
 
     @Named("stringToTimestamp")
     default Timestamp convertStringToTimestamp(String date) {
+        if (date == null) {
+            return null;
+        }
         try {
             Date parseDate = dateFormat.parse(date);
             return Timestamp.of(parseDate);

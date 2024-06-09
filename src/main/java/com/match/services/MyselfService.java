@@ -11,6 +11,7 @@ import com.match.repository.UserStatusRepository;
 import com.match.services.mapping.UserProfileMapper;
 import com.match.services.mapping.UserStatusMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -52,5 +53,18 @@ public class MyselfService {
         userStatusRepository.save(userUid, UserStatus.ADDED);
 
         return userStatusMapper.toDto(userStatusRepository.getStatus(userUid));
+    }
+
+    public void modify(UserProfileRequestDto dto, Principal principal) {
+
+        // getCurrentUser
+        String userUid = authRepository.getUserUid(principal);
+
+        // UserProfileEntity
+        UserProfile userProfile = mapper.fromDto(dto);
+        userProfile.setUserId(userUid);
+
+        // сохраняем в репозитории
+        repository.save(userProfile);
     }
 }
