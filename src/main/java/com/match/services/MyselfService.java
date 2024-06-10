@@ -77,6 +77,7 @@ public class MyselfService {
         // getCurrentUser
         String userUid = authRepository.getUserUid(principal);
 
+        // todo бд для анализа
         // Здесь логика анализа
         // также нужно продумать, куда сохранять все данные после анализа
 
