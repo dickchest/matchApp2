@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 
@@ -31,5 +32,10 @@ public class MyselfController {
     public ResponseEntity<String> modify(@RequestBody UserProfileRequestDto dto, Principal principal) {
         service.modify(dto, principal);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/analize")
+    public ResponseEntity<UserStatusDto> analyze(@RequestParam("foto") MultipartFile photo, Principal principal) {
+        return new ResponseEntity<>(service.analyze(photo, principal), HttpStatus.OK);
     }
 }

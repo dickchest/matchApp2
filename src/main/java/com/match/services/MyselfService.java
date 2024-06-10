@@ -13,6 +13,7 @@ import com.match.services.mapping.UserStatusMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 
@@ -69,5 +70,19 @@ public class MyselfService {
 
         // сохраняем в репозитории
         repository.save(userProfile);
+    }
+
+    public UserStatusDto analyze(MultipartFile photo, Principal principal) {
+
+        // getCurrentUser
+        String userUid = authRepository.getUserUid(principal);
+
+        // Здесь логика анализа
+        // также нужно продумать, куда сохранять все данные после анализа
+
+        // устанавливаем статус
+        userStatusRepository.save(userUid, UserStatus.ANALYSED);
+
+        return userStatusMapper.toDto(userStatusRepository.getStatus(userUid));
     }
 }
