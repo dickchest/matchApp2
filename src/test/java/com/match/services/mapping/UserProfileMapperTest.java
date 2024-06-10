@@ -1,7 +1,7 @@
 package com.match.services.mapping;
 
 import com.google.cloud.Timestamp;
-import com.match.domain.Languages;
+import com.match.domain.Language;
 import com.match.domain.UserProfile;
 import com.match.domain.UserProfileQuestions;
 import com.match.dto.myselfDtos.createAndModify.UserProfileRequestDto;
@@ -49,8 +49,8 @@ class UserProfileMapperTest {
         userProfile.setInterests(Arrays.asList("Reading", "Traveling"));
         // Языки
         userProfile.setLanguages(Arrays.asList(
-                new Languages("EN", "English", "logoPath"),
-                new Languages("FR", "French", "logoPath")));
+                new Language("EN", "English", "logoPath"),
+                new Language("FR", "French", "logoPath")));
         // Вопросы
         userProfile.setQuestions(new UserProfileQuestions(
                 "city", "beach", Arrays.asList("romantically", "spontaneously"), "vegetarian", "museums", "reading", "morning", "indoors", "relaxing"));

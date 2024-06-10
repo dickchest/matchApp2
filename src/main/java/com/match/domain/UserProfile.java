@@ -2,6 +2,7 @@ package com.match.domain;
 
 import com.google.cloud.Timestamp;
 import lombok.*;
+import org.apache.commons.codec.language.bm.Languages;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,8 @@ public class UserProfile {
     private Timestamp dateOfBirth;
     private Integer gender;
     private String city;
-    private List<Languages> languages;
+//    private List<Languages> languages;
+    private List<String> languages; // здесь ссылки на юид языков из таблицы language
     private List<Integer> goals;
     private Boolean goalsShow;
     private List<Integer> genderLook;

@@ -8,7 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Languages {
+public class Language {
+    private String uid;
     private String code;
     private String name;
     private String logo;

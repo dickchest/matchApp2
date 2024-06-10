@@ -23,8 +23,8 @@ public class UserProfileRepository {
     }
 
     public void save(UserProfile entity) {
-        DocumentReference addedDocRef = null;
         ApiFuture<WriteResult> writeResult = collection.document(entity.getUserId()).set(entity);
+
     }
 
     public UserProfile get(String uid) {
