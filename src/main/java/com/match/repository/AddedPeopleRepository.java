@@ -3,7 +3,7 @@ package com.match.repository;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import com.match.domain.entity.Language;
+import com.match.domain.entity.AddedPeople;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,19 +11,19 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @Repository
-public class LanguagesRepository {
+public class AddedPeopleRepository {
     Firestore dbFirestore = FirestoreClient.getFirestore();
-    CollectionReference collection = dbFirestore.collection("languages");
+    CollectionReference collection = dbFirestore.collection("added_people");
 
-    public List<Language> getAll() throws ExecutionException, InterruptedException {
+    public List<AddedPeople> getAll() throws ExecutionException, InterruptedException {
         ApiFuture<QuerySnapshot> future = collection.get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 
         return documents.stream()
-                .map(x -> x.toObject(Language.class)).toList();
+                .map(x -> x.toObject(AddedPeople.class)).toList();
     }
 
-    public void save(Language entity) {
+    public void save(AddedPeople entity) {
         ApiFuture<WriteResult> writeResult = collection.document(entity.getUid()).set(entity);
         try {
             writeResult.get();
@@ -32,23 +32,33 @@ public class LanguagesRepository {
         }
     }
 
-    public Optional<Language> findById(String uid) {
+    public Optional<AddedPeople> findById(String uid) {
         ApiFuture<DocumentSnapshot> future = collection.document(uid).get();
         DocumentSnapshot document;
         try {
             document = future.get();
             // Возвращаем Optional, который может быть пустым, если document.toObject() возвращает null
-            return Optional.ofNullable(document.toObject(Language.class));
+            return Optional.ofNullable(document.toObject(AddedPeople.class));
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Optional<Language> findByName(String name) {
+    public Optional<AddedPeople> findByName(String name) {
         ApiFuture<QuerySnapshot> future = collection.whereEqualTo("name", name).get();
         try {
             List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-            return Optional.ofNullable(documents.get(0).toObject(Language.class));
+            return Optional.of(documents.get(0).toObject(AddedPeople.class));
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Optional<AddedPeople> findByAnalyzedBy(String userId) {
+        ApiFuture<QuerySnapshot> future = collection.whereEqualTo("userId", userId).get();
+        try {
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            return Optional.of(documents.get(0).toObject(AddedPeople.class));
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }

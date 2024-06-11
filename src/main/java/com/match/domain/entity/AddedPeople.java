@@ -5,8 +5,8 @@ import lombok.*;
 
 @Data
 public class AddedPeople {
-    private String id; // выбирается автоматически
-    private String analyzedBy; // какой user вводил запрос на анализ этого человека
+    private String uid; // выбирается автоматически
+    private String userId; // какой user вводил запрос на анализ этого человека
     private String photo;
     private String name;
     private Timestamp dateOfBirth;
