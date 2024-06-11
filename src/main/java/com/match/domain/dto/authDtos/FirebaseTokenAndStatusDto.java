@@ -1,4 +1,4 @@
-package com.match.dto.authDtos;
+package com.match.domain.dto.authDtos;
 
 import lombok.Getter;
 import lombok.Setter;

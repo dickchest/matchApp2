@@ -1,17 +1,16 @@
 package com.match.services;
 
-import com.match.domain.UserProfile;
-import com.match.domain.enums.UserStatus;
-import com.match.dto.UserStatusDto;
-import com.match.dto.myselfDtos.basic.UserProfileBasicResponseDto;
-import com.match.dto.myselfDtos.createAndModify.UserProfileRequestDto;
+import com.match.domain.entity.UserProfile;
+import com.match.domain.entity.enums.UserStatus;
+import com.match.domain.dto.UserStatusDto;
+import com.match.domain.dto.myselfDtos.basic.UserProfileBasicResponseDto;
+import com.match.domain.dto.myselfDtos.createAndModify.UserProfileRequestDto;
 import com.match.repository.AuthRepository;
 import com.match.repository.UserProfileRepository;
 import com.match.repository.UserStatusRepository;
 import com.match.services.mapping.UserProfileMapper;
 import com.match.services.mapping.UserStatusMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

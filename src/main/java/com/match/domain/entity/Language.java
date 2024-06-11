@@ -1,4 +1,4 @@
-package com.match.domain;
+package com.match.domain.entity;
 
 import lombok.*;
 

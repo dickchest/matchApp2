@@ -1,6 +1,6 @@
-package com.match.dto.myselfDtos.createAndModify;
+package com.match.domain.dto.myselfDtos.createAndModify;
 
-import com.match.dto.myselfDtos.UserProfileQuestionsDto;
+import com.match.domain.dto.myselfDtos.UserProfileQuestionsDto;
 import lombok.Data;
 
 import java.util.List;

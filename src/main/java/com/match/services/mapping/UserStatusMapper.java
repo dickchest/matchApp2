@@ -1,7 +1,7 @@
 package com.match.services.mapping;
 
-import com.match.domain.enums.UserStatus;
-import com.match.dto.UserStatusDto;
+import com.match.domain.entity.enums.UserStatus;
+import com.match.domain.dto.UserStatusDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

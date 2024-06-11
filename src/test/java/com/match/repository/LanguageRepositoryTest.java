@@ -1,6 +1,6 @@
 package com.match.repository;
 
-import com.match.domain.Language;
+import com.match.domain.entity.Language;
 import com.match.validation.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

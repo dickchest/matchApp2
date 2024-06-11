@@ -3,8 +3,8 @@ package com.match.repository;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import com.match.domain.Users;
-import com.match.domain.enums.UserStatus;
+import com.match.domain.entity.Users;
+import com.match.domain.entity.enums.UserStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

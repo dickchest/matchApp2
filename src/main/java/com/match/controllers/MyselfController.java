@@ -1,8 +1,8 @@
 package com.match.controllers;
 
-import com.match.dto.UserStatusDto;
-import com.match.dto.myselfDtos.basic.UserProfileBasicResponseDto;
-import com.match.dto.myselfDtos.createAndModify.UserProfileRequestDto;
+import com.match.domain.dto.UserStatusDto;
+import com.match.domain.dto.myselfDtos.basic.UserProfileBasicResponseDto;
+import com.match.domain.dto.myselfDtos.createAndModify.UserProfileRequestDto;
 import com.match.services.MyselfService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class MyselfController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/analize")
+    @PostMapping("/analyze")
     public ResponseEntity<UserStatusDto> analyze(@RequestParam("foto") MultipartFile photo, Principal principal) {
         return new ResponseEntity<>(service.analyze(photo, principal), HttpStatus.OK);
     }

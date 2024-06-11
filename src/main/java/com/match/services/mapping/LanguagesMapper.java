@@ -1,6 +1,6 @@
 package com.match.services.mapping;
 
-import com.match.domain.Language;
+import com.match.domain.entity.Language;
 import com.match.repository.LanguagesRepository;
 import com.match.validation.EntityNotFoundException;
 import lombok.AllArgsConstructor;

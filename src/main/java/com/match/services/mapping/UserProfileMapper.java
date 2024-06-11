@@ -1,9 +1,9 @@
 package com.match.services.mapping;
 
 import com.google.cloud.Timestamp;
-import com.match.domain.UserProfile;
-import com.match.dto.myselfDtos.basic.UserProfileBasicResponseDto;
-import com.match.dto.myselfDtos.createAndModify.UserProfileRequestDto;
+import com.match.domain.entity.UserProfile;
+import com.match.domain.dto.myselfDtos.basic.UserProfileBasicResponseDto;
+import com.match.domain.dto.myselfDtos.createAndModify.UserProfileRequestDto;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 

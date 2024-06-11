@@ -1,6 +1,6 @@
-package com.match.domain;
+package com.match.domain.entity;
 
-import com.match.domain.enums.UserStatus;
+import com.match.domain.entity.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

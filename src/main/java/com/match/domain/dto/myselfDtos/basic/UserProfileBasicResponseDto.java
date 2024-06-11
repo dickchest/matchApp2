@@ -1,4 +1,4 @@
-package com.match.dto.myselfDtos.basic;
+package com.match.domain.dto.myselfDtos.basic;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.match.domain.enums;
+package com.match.domain.entity.enums;
 
 public enum UserStatus {
     REGISTER,

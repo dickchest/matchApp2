@@ -1,11 +1,11 @@
 package com.match.services.mapping;
 
 import com.google.cloud.Timestamp;
-import com.match.domain.Language;
-import com.match.domain.UserProfile;
-import com.match.domain.UserProfileQuestions;
-import com.match.dto.myselfDtos.createAndModify.UserProfileRequestDto;
-import com.match.dto.myselfDtos.UserProfileQuestionsDto;
+import com.match.domain.entity.Language;
+import com.match.domain.entity.UserProfile;
+import com.match.domain.entity.UserProfileQuestions;
+import com.match.domain.dto.myselfDtos.createAndModify.UserProfileRequestDto;
+import com.match.domain.dto.myselfDtos.UserProfileQuestionsDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

@@ -1,13 +1,16 @@
-package com.match.dto.myselfDtos;
+package com.match.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
-public class UserProfileQuestionsDto {
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+public class UserProfileQuestions {
     private String preferToLive;
     private String idealVacation;
     private List<String> howDoYouLove;

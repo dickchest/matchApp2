@@ -1,6 +1,6 @@
 package com.match.controllers;
 
-import com.match.dto.UserStatusDto;
+import com.match.domain.dto.UserStatusDto;
 import com.match.services.AnyoneService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import java.security.Principal;
 public class AnyoneController {
     private AnyoneService service;
 
-    @PostMapping("/analize")
+    @PostMapping("/analyze")
     public ResponseEntity<UserStatusDto> analyze(
             @RequestParam("foto") MultipartFile photo,
             @RequestParam("name") String name,
@@ -28,6 +28,6 @@ public class AnyoneController {
             @RequestParam("relationshipType") String relationshipType,
             Principal principal) {
 
-        return new ResponseEntity<>(service.analyze(photo, principal), HttpStatus.OK);
+        return new ResponseEntity<>(service.analyze(photo, name, dateOfBirth, gender, relationshipType, principal), HttpStatus.OK);
     }
 }

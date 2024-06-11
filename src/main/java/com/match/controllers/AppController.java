@@ -1,7 +1,7 @@
 package com.match.controllers;
 
-import com.match.dto.authDtos.FirebaseTokenAndStatusDto;
-import com.match.dto.authDtos.TelegramAuthDataDto;
+import com.match.domain.dto.authDtos.FirebaseTokenAndStatusDto;
+import com.match.domain.dto.authDtos.TelegramAuthDataDto;
 import com.match.services.FirebaseAuthenticationService;
 import com.match.validation.InvalidTelegramHashException;
 import org.springframework.http.HttpStatus;
