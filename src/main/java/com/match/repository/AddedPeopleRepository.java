@@ -23,7 +23,7 @@ public class AddedPeopleRepository {
                 .map(x -> x.toObject(AddedPeople.class)).toList();
     }
 
-    public void save(AddedPeople entity) {
+    public String save(AddedPeople entity) {
         DocumentReference addedDocRef;
         // генерируем юид
         if (entity.getUid() == null) {
@@ -39,6 +39,7 @@ public class AddedPeopleRepository {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+        return entity.getUid();
     }
 
     public Optional<AddedPeople> findById(String uid) {

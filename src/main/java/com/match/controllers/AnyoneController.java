@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @RestController
@@ -26,8 +27,8 @@ public class AnyoneController {
             @RequestParam("dateOfBirth") String dateOfBirth,
             @RequestParam("gender") Integer gender,
             @RequestParam("relationshipType") String relationshipType,
-            Principal principal) {
+            Principal principal) throws IOException, IllegalAccessException {
 
-        return new ResponseEntity<>(service.analyze(photo, name, dateOfBirth, gender, relationshipType, principal), HttpStatus.OK);
+        return new ResponseEntity<>(service.analyze(photo, name, dateOfBirth, gender, relationshipType, principal), HttpStatus.CREATED);
     }
 }

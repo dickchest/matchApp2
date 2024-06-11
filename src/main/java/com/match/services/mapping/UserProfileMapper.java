@@ -1,9 +1,9 @@
 package com.match.services.mapping;
 
 import com.google.cloud.Timestamp;
-import com.match.domain.entity.UserProfile;
 import com.match.domain.dto.myselfDtos.basic.UserProfileBasicResponseDto;
 import com.match.domain.dto.myselfDtos.createAndModify.UserProfileRequestDto;
+import com.match.domain.entity.UserProfile;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -51,10 +51,6 @@ public abstract class UserProfileMapper {
     @Mapping(target = "about", ignore = true)
     public abstract void modifyModelFromDto(UserProfileRequestDto dto, @MappingTarget UserProfile userProfile);
 
-    @Named("timestampToString")
-    protected String convertTimestampToString(Timestamp timestamp) {
-        return timestamp != null ? dateFormat.format(timestamp) : null;
-    }
 
     @Named("languagesToNames")
     protected List<String> languagesToNames(List<String> uids) {
@@ -73,7 +69,6 @@ public abstract class UserProfileMapper {
     }
 
 
-
     @Named("stringToTimestamp")
     protected Timestamp convertStringToTimestamp(String date) {
         if (date == null) {
@@ -85,6 +80,11 @@ public abstract class UserProfileMapper {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Named("timestampToString")
+    protected String convertTimestampToString(Timestamp timestamp) {
+        return timestamp != null ? dateFormat.format(timestamp) : null;
     }
 
     @Named("calculateAgeFromTimestamp")
