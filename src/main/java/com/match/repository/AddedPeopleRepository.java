@@ -24,7 +24,16 @@ public class AddedPeopleRepository {
     }
 
     public void save(AddedPeople entity) {
-        ApiFuture<WriteResult> writeResult = collection.document(entity.getUid()).set(entity);
+        DocumentReference addedDocRef;
+        // генерируем юид
+        if (entity.getUid() == null) {
+            addedDocRef = collection.document();
+            entity.setUid(addedDocRef.getId());
+        } else {
+            addedDocRef = collection.document(entity.getUid());
+        }
+        ApiFuture<WriteResult> writeResult = addedDocRef.set(entity);
+
         try {
             writeResult.get();
         } catch (InterruptedException | ExecutionException e) {
