@@ -84,7 +84,12 @@ public abstract class UserProfileMapper {
 
     @Named("timestampToString")
     protected String convertTimestampToString(Timestamp timestamp) {
-        return timestamp != null ? dateFormat.format(timestamp) : null;
+        if (timestamp == null) {
+            return null;
+        }
+        // Преобразуем Timestamp в Date
+        Date date = Date.from(timestamp.toDate().toInstant());
+        return dateFormat.format(date);
     }
 
     @Named("calculateAgeFromTimestamp")
