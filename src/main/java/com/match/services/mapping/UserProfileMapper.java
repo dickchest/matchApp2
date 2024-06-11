@@ -5,44 +5,77 @@ import com.match.domain.UserProfile;
 import com.match.dto.myselfDtos.basic.UserProfileBasicResponseDto;
 import com.match.dto.myselfDtos.createAndModify.UserProfileRequestDto;
 import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public interface UserProfileMapper {
+public abstract class UserProfileMapper {
 
-//    UserProfileMapper INSTANCE = Mappers.getMapper(UserProfileMapper.class);
+    protected LanguagesMapper languagesMapper;
+
+    @Autowired
+    public void setLanguagesMapper(LanguagesMapper languagesMapper) {
+        this.languagesMapper = languagesMapper;
+    }
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-//    @Mapping(target = "languagesNames", source = "languages", qualifiedByName = "languagesToNames")
+    @Mapping(target = "languages", source = "languages", qualifiedByName = "languagesToNames")
     @Mapping(target = "dateOfBirth", source = "dateOfBirth", qualifiedByName = "timestampToString")
-    UserProfileRequestDto toDto(UserProfile userProfile);
+    abstract UserProfileRequestDto toDto(UserProfile userProfile);
 
     @Mapping(target = "age", source = "dateOfBirth", qualifiedByName = "calculateAgeFromTimestamp")
-    UserProfileBasicResponseDto toBasicResponseDto(UserProfile userProfile);
+    @Mapping(target = "profileComplied", ignore = true)
+    public abstract UserProfileBasicResponseDto toBasicResponseDto(UserProfile userProfile);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-//    @Mapping(target = "languages", source = "languagesNames", qualifiedByName = "namesToLanguages")
+    @Mapping(target = "languages", source = "languages", qualifiedByName = "namesToLanguages")
     @Mapping(target = "dateOfBirth", source = "dateOfBirth", qualifiedByName = "stringToTimestamp")
-    UserProfile fromDto(UserProfileRequestDto userProfileRequestDto);
+    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "photos", ignore = true)
+    @Mapping(target = "about", ignore = true)
+    public abstract UserProfile fromDto(UserProfileRequestDto userProfileRequestDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-//    @Mapping(target = "languages", source = "languages", qualifiedByName = "namesToLanguages")
+    @Mapping(target = "languages", source = "languages", qualifiedByName = "namesToLanguages")
     @Mapping(target = "dateOfBirth", source = "dateOfBirth", qualifiedByName = "stringToTimestamp")
-    void modifyModelFromDto(UserProfileRequestDto dto, @MappingTarget UserProfile userProfile);
+    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "photos", ignore = true)
+    @Mapping(target = "about", ignore = true)
+    public abstract void modifyModelFromDto(UserProfileRequestDto dto, @MappingTarget UserProfile userProfile);
 
     @Named("timestampToString")
-    default String convertTimestampToString(Timestamp timestamp) {
+    protected String convertTimestampToString(Timestamp timestamp) {
         return timestamp != null ? dateFormat.format(timestamp) : null;
     }
 
+    @Named("languagesToNames")
+    protected List<String> languagesToNames(List<String> uids) {
+        if (uids == null) return null;
+        return uids.stream()
+                .map(x -> languagesMapper.toLanguageFromUid(x).getName())
+                .collect(Collectors.toList());
+    }
+
+    @Named("namesToLanguages")
+    protected List<String> namesToLanguages(List<String> name) {
+        if (name == null) return null;
+        return name.stream()
+                .map(x -> languagesMapper.toLanguageFromName(x).getUid())
+                .collect(Collectors.toList());
+    }
+
+
+
     @Named("stringToTimestamp")
-    default Timestamp convertStringToTimestamp(String date) {
+    protected Timestamp convertStringToTimestamp(String date) {
         if (date == null) {
             return null;
         }
@@ -55,7 +88,7 @@ public interface UserProfileMapper {
     }
 
     @Named("calculateAgeFromTimestamp")
-    default Integer calculateAge(Timestamp dateOfBirth) {
+    protected Integer calculateAge(Timestamp dateOfBirth) {
         if (dateOfBirth == null) {
             return null;
         }
