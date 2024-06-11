@@ -5,7 +5,6 @@ import com.match.domain.entity.AddedPeople;
 import com.match.services.utils.TimeUtils;
 import com.match.services.utils.file.FileUtils;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,6 +13,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class AnalyzeMapper {
     private final FileUtils fileUtils;
+
     public AddedPeople fromDto(AnalyzeRequestDto dto) throws IOException, IllegalAccessException {
         return AddedPeople.builder()
                 .userId(dto.getUserId())
