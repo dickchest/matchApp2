@@ -1,6 +1,6 @@
 package com.match.services.mapping;
 
-import com.match.domain.dto.anyone.AnalyzeRequestDto;
+import com.match.domain.dto.anyoneDtos.analyzeDto.AnalyzeRequestDto;
 import com.match.domain.entity.AddedPeople;
 import com.match.services.utils.TimeUtils;
 import com.match.services.utils.file.FileUtils;

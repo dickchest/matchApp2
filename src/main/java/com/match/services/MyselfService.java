@@ -31,7 +31,8 @@ public class MyselfService {
         String userUid = authRepository.getUserUid(principal);
 
         // UserProfileEntity
-        UserProfile userProfile = repository.get(userUid);
+        UserProfile userProfile = repository.findById(userUid)
+                .orElseThrow(() -> new RuntimeException("Not Found!"));
 
         return mapper.toBasicResponseDto(userProfile);
     }
@@ -61,7 +62,8 @@ public class MyselfService {
         String userUid = authRepository.getUserUid(principal);
 
         // UserProfileEntity
-        UserProfile userProfile = repository.get(userUid);
+        UserProfile userProfile = repository.findById(userUid)
+                .orElseThrow(() -> new RuntimeException("Not Found!"));
 
         // Обновление существующего userProfile данными из dto
         // Важно: этот вызов теперь обновляет userProfile, а не создаёт новый объект
