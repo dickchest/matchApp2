@@ -1,13 +1,15 @@
 package com.match.services;
 
-import com.match.domain.dto.UserStatusDto;
-import com.match.domain.dto.anyone.AnalyzeRequestDto;
+import com.match.domain.dto.anyoneDtos.analyzeDto.AnalyzeRequestDto;
+import com.match.domain.dto.anyoneDtos.analyzeDto.AnalyzeResponseDto;
+import com.match.domain.dto.anyoneDtos.getAnyoneDto.GetAnyoneResponseDto;
 import com.match.domain.entity.AddedPeople;
+import com.match.domain.entity.UserProfile;
 import com.match.repository.AddedPeopleRepository;
+import com.match.repository.UserProfileRepository;
 import com.match.services.mapping.AnalyzeMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -17,21 +19,24 @@ import java.security.Principal;
 public class AnyoneService {
     private final AddedPeopleRepository addedPeopleRepository;
     private final AnalyzeMapper analyzeMapper;
+    private final UserProfileRepository userProfileRepository;
 
-    public UserStatusDto analyze(MultipartFile photo, String name, String dateOfBirth, Integer gender, String relationshipType, Principal principal) throws IOException, IllegalAccessException {
-        AnalyzeRequestDto dto = AnalyzeRequestDto.builder()
-                .photo(photo)
-                .name(name)
-                .dateOfBirth(dateOfBirth)
-                .gender(gender)
-                .relationshipType(relationshipType)
-                .userId(principal.getName())
-                .build();
+    public AnalyzeResponseDto analyze(AnalyzeRequestDto dto, Principal principal) throws IOException, IllegalAccessException {
 
         AddedPeople addedPeople = analyzeMapper.fromDto(dto);
 
-        return UserStatusDto.builder()
-                .status(addedPeopleRepository.save(addedPeople))
+        return AnalyzeResponseDto.builder()
+                .userId(addedPeopleRepository.save(addedPeople))
                 .build();
+    }
+
+
+    public GetAnyoneResponseDto getPeople(String userUid, Principal principal) {
+        UserProfile userProfile = userProfileRepository.findById(userUid)
+                .orElseThrow(() -> new RuntimeException("Not found!"));
+
+        GetAnyoneResponseDto dto = GetAnyoneResponseDto.builder().build();
+
+        return dto;
     }
 }

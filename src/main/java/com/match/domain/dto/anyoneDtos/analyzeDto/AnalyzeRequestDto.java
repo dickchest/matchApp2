@@ -1,4 +1,4 @@
-package com.match.domain.dto.anyone;
+package com.match.domain.dto.anyoneDtos.analyzeDto;
 
 import lombok.Builder;
 import lombok.Data;
