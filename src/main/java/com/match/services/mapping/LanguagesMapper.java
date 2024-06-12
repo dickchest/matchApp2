@@ -18,7 +18,7 @@ public class LanguagesMapper {
     }
 
     public Language toLanguageFromName(String  name) {
-        return languagesRepository.findByName(name)
+        return languagesRepository.findByField(name, name)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found"));
     }
 }
