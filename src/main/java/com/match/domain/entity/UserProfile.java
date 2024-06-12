@@ -10,9 +10,7 @@ import java.util.Map;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
-public class UserProfile {
+public class UserProfile extends BaseEntity{
     private String userId;
     private String name;
     private Timestamp dateOfBirth;

@@ -6,9 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
-public class Language {
+public class Language extends BaseEntity{
     private String uid;
     private String code;
     private String name;

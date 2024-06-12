@@ -3,9 +3,11 @@ package com.match.domain.entity;
 import com.google.cloud.Timestamp;
 import lombok.*;
 
-@Data
+
+@Getter
+@Setter
 @Builder
-public class AddedPeople {
+public class AddedPeople extends BaseEntity{
     private String uid; // выбирается автоматически
     private String userId; // какой user вводил запрос на анализ этого человека
     private String photo;
