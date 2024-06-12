@@ -22,30 +22,22 @@ import java.io.IOException;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AnyoneControllerTest {
+class AnyoneControllerFullTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private AnyoneService service;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     public void setUp() throws IOException, IllegalAccessException {
-        UserStatusDto mockStatus = UserStatusDto.builder()
-                .status(UserStatus.ANALYSED.toString())
-                .build();
-
-        Mockito.when(service.analyze(Mockito.any(), Mockito.anyString(), Mockito.anyString(), Mockito.anyInt(), Mockito.anyString(), Mockito.any()))
-                .thenReturn(mockStatus);
     }
 
     @Test
     @WithMockUser
     public void analyzeTest() throws Exception {
         MockMultipartFile photo = new MockMultipartFile("foto", "filename.txt", "text/plan", "some photo".getBytes());
+
         mockMvc.perform(MockMvcRequestBuilders.multipart("/anyone/analyze")
                         .file(photo)
                         .param("name", "John Doe")
@@ -55,6 +47,5 @@ class AnyoneControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("ANALYSED"));
-
     }
 }

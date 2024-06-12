@@ -28,6 +28,7 @@ public class FirebaseConfig {
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(resourceFile.getInputStream()))
                 .setServiceAccountId("firebase-adminsdk-9r217@match-app-2.iam.gserviceaccount.com")
+                .setStorageBucket("match-app-2.appspot.com")
                 .build();
 
         if (FirebaseApp.getApps().isEmpty()) { // Проверяем, не инициализировано ли уже приложение
